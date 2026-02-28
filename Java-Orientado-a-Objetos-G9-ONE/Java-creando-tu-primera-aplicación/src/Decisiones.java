@@ -20,5 +20,21 @@ public class Decisiones {
       tipoDePelicula = "Retro";
     }
     System.out.println("La película es " + tipoDePelicula);
+
+    /* Quick practice
+    - Vamos a evaluar si una película esta en estreno y si el usuario tiene el plan VIP 
+    - Vamos a declara una variable booleana para guardar el estreno 
+    - Vamos a devlarar una variable String pra guardar el tipo de plan 
+    - Definiremos el escenario de la condición usando los operadores lógicos: 
+    
+    */
+
+    boolean estaEnEstreno = !true;
+    String tipoDePlan = "VIP";
+    if (estaEnEstreno && tipoDePlan.equals("VIP")) {
+      System.out.println("Disfruta de la película en estreno con tu plan VIP...");
+    } else {
+      System.out.println("Película no disponible en estreno o no tienes el plan VIP...");
+    }
   }
 }
