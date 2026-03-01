@@ -9,13 +9,14 @@ import models.Serie;
 public class App {
     public static void main(String[] args) throws Exception {
       // Creamos una instancia de la clase Serie
-      Serie miSerie = new Serie();
+      Serie miSerie = new Serie("Stranger Things", 4, 9, 2022);
 
-      // Asignamos valores a los atributos públicos del objeto
+       /* // Asignamos valores a los atributos públicos del objeto
+      /* // Asignamos valores a los atributos públicos del objeto
       miSerie.nombreSerie = "Stranger Things";   // título de la serie
       miSerie.numeroTemporada = 4;               // temporada actual
       miSerie.numeroEpisodio = 9;                // episodio actual
-      miSerie.fechaEstreno = 2022;               // año de estreno
+      miSerie.fechaEstreno = 2022;               // año de estreno */
 
       // Mostrar la ficha completa de la serie en la consola
       miSerie.muestraFicha();

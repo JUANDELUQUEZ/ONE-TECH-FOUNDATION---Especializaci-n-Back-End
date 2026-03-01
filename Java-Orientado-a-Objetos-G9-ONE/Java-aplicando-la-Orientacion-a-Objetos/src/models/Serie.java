@@ -19,26 +19,53 @@ package models;
  */
 
 public class Serie {
-    // Datos públicos para acceder directamente desde otras clases
-    String nombreSerie;
-    int numeroTemporada;
-    int numeroEpisodio;
-    int fechaEstreno;
+    // Datos privados para acceder por medio de métodos públicos desde otras clases
+    private String nombreSerie;
+    private int numeroTemporada;
+    private int numeroEpisodio;
+    private int fechaEstreno;
 
-    // A partir de aquí: campos usados para calcular promedios
-    private double sumaDeLasCalificaciones;
-    private int totalDeCalificaciones;
+    // Creamos un constructor para inicializar los atributos de la serie
+    public Serie(String nombreSerie, int numeroTemporada, int numeroEpisodio, int fechaEstreno) {
+      if (nombreSerie != null && !nombreSerie.isEmpty() && numeroTemporada > 0 && numeroEpisodio > 0 && fechaEstreno > 0) {
+        
+        this.nombreSerie = nombreSerie;
+        this.numeroTemporada = numeroTemporada;
+        this.numeroEpisodio = numeroEpisodio;
+        this.fechaEstreno = fechaEstreno;
+      } else {
+        throw new IllegalArgumentException("Todos los parámetros deben ser válidos y no nulos.");
+      }
+    }
+
 
     /**
      * Imprime en consola una "ficha" con la información básica de la serie.
-     */
+    */
     public void muestraFicha() {
       System.out.println("Nombre de la serie: " + nombreSerie);
       System.out.println("Número de temporada: " + numeroTemporada);
       System.out.println("Número de episodio: " + numeroEpisodio);
       System.out.println("Fecha de estreno: " + fechaEstreno);
     }
+    
+    /* 
+    *
+    *
+    * *
+    * *
+    * *
+    * *
+    * *
+    * *
+    * 
+    *  */
 
+
+    // A partir de aquí: campos usados para calcular promedios
+    private double sumaDeLasCalificaciones;
+    private int totalDeCalificaciones;
+    
     /**
      * Registra una calificación sumándola al total y aumentando el contador.
      *
@@ -69,4 +96,5 @@ public class Serie {
     public int getTotalDeCalificaciones() {
       return totalDeCalificaciones;
     }
+    
 }
