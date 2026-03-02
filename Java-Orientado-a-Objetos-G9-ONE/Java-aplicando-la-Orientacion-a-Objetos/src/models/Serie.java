@@ -18,36 +18,58 @@ package models;
  * en este ejemplo para simplificar el acceso desde la clase principal.
  */
 
-public class Serie {
+
+public class Serie extends Titulo  {
     // Datos privados para acceder por medio de métodos públicos desde otras clases
-    private String nombreSerie;
+
     private int numeroTemporada;
     private int numeroEpisodio;
-    private int fechaEstreno;
+    private int minutosPorEpisodio;
+
 
     // Creamos un constructor para inicializar los atributos de la serie
-    public Serie(String nombreSerie, int numeroTemporada, int numeroEpisodio, int fechaEstreno) {
-      if (nombreSerie != null && !nombreSerie.isEmpty() && numeroTemporada > 0 && numeroEpisodio > 0 && fechaEstreno > 0) {
+    public Serie(String nombre, int numeroTemporada, int numeroEpisodio, int fechaEstreno, int minutosPorEpisodio) {
+      if (nombre != null && !nombre.isEmpty() && numeroTemporada > 0 && numeroEpisodio > 0 && fechaEstreno > 0 && minutosPorEpisodio > 0) {
         
-        this.nombreSerie = nombreSerie;
+        this.setNombre(nombre); // Usamos el setter heredado de Titulo para asignar el nombre
         this.numeroTemporada = numeroTemporada;
         this.numeroEpisodio = numeroEpisodio;
-        this.fechaEstreno = fechaEstreno;
+        this.minutosPorEpisodio = minutosPorEpisodio;
+        this.setFechaEstreno(fechaEstreno);
       } else {
         throw new IllegalArgumentException("Todos los parámetros deben ser válidos y no nulos.");
       }
+    }
+
+    // Metodo para calcular cuanto dura la serie dependiendo de la duracion de cada episodio por minuto. 
+
+    @Override
+    public int getDuracion() {
+      return minutosPorEpisodio * numeroEpisodio * numeroTemporada;
     }
 
 
     /**
      * Imprime en consola una "ficha" con la información básica de la serie.
     */
+
     public void muestraFicha() {
-      System.out.println("Nombre de la serie: " + nombreSerie);
+      // 1. Primero le decimos al padre que imprima el Nombre y la Fecha:
+      super.muestraFicha(); 
+
+      // 2. Después, imprimimos los datos que son exclusivos de esta clase (Serie):
       System.out.println("Número de temporada: " + numeroTemporada);
+      
+      // (Aquí iría la línea para el número de episodio)
       System.out.println("Número de episodio: " + numeroEpisodio);
-      System.out.println("Fecha de estreno: " + fechaEstreno);
-    }
+
+      // Muestra de la duración de la serie, 
+      // que es un dato exclusivo de esta 
+      // clase, por lo que no es necesario 
+      // definirlo en el padre Titulo.
+      System.out.println("Duración total de la serie: " + this.getDuracion() + " minutos");
+
+  }
     
     /* 
     *
@@ -60,41 +82,4 @@ public class Serie {
     * *
     * 
     *  */
-
-
-    // A partir de aquí: campos usados para calcular promedios
-    private double sumaDeLasCalificaciones;
-    private int totalDeCalificaciones;
-    
-    /**
-     * Registra una calificación sumándola al total y aumentando el contador.
-     *
-     * @param calificacion valor numérico (ej. de 0.0 a 5.0) aportado por un
-     *                      espectador.
-     */
-    public void calificacion(double calificacion) {
-      sumaDeLasCalificaciones += calificacion;
-      totalDeCalificaciones++;
-    }
-
-    /**
-     * Calcula y devuelve el promedio de todas las calificaciones registradas.
-     *
-     * @return promedio como double; devuelve 0 si no hay calificaciones para
-     *         evitar división por cero.
-     */
-    public double promedioCalificaciones() {
-      if (totalDeCalificaciones == 0) {
-        return 0; // Evitar división por cero
-      }
-      return sumaDeLasCalificaciones / totalDeCalificaciones;
-    }
-    /* Aquí creamos un nuevo metodo para poder obtener el total de 
-    calificaciones registradas ya que la variable ahora tiene un 
-    modificador de acceso privado */
-
-    public int getTotalDeCalificaciones() {
-      return totalDeCalificaciones;
-    }
-    
 }
