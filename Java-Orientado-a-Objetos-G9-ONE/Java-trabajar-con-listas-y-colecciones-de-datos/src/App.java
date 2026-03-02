@@ -1,20 +1,24 @@
-// Importamos nuestros modelos y las listas
-
 import models.*; 
 import java.util.ArrayList;
 
-
 public class App {
     public static void main(String[] args) throws Exception {
-        Pelicula peliculaUno = new Pelicula();
-        peliculaUno.setNombre("Avatar");
-        Pelicula peliculaDos = new Pelicula();
-        peliculaDos.setNombre("Avatar 2");
+        Pelicula peliculaUno = new Pelicula("Avatar 3",  2025);
+        peliculaUno.setFechaDeLanzamiento(2009);
+        peliculaUno.setDuracionEnMinutos(162);
 
-        ArrayList<Pelicula> lista = new ArrayList<>(); // Aplicando Genericidad
+        Serie miSerie = new Serie();
+        miSerie.setNombre("Breaking Bad");
+        miSerie.setTemporadas(5);
+        
+        // ⚠️ Aquí está el punto clave
+        ArrayList<Titulo> lista = new ArrayList<>(); 
+        // Prueba del .isEmpty() antes de agregar elementos
+        System.out.println("¿La lista está vacía? " + lista.isEmpty()); // Debería imprimir 'true' porque aún no hemos agregado nada
         lista.add(peliculaUno);
-        lista.add(peliculaDos);
-
-        System.out.println(lista); // Ahora gracias al toString() verás el nombre
+        lista.add(miSerie); 
+        // Prueba del .isEmpty() después de agregar elementos
+        System.out.println("¿La lista está vacía? " + lista.isEmpty()); // Debería imprimir 'false' porque ahora hemos agregado elementos
+        System.out.println(lista); 
     }
 }

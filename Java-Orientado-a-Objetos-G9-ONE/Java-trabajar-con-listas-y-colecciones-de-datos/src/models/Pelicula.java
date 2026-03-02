@@ -1,14 +1,18 @@
 package models;
 
-public class Pelicula {
-  private String nombre;
+public class Pelicula extends Titulo {
+    // 🧹 Eliminamos el atributo 'nombre' y sus getters/setters porque ya los hereda de Titulo.
+    
 
-  public String getNombre() { return nombre; }
-  public void setNombre(String nombre) { this.nombre = nombre; }
+    // Constructor parametrizado que llama al constructor de la clase padre (Titulo)
+    public Pelicula(String nombre, int fechaDeLanzamiento) {
+      super(nombre, fechaDeLanzamiento); // 👈 Obligatorio en la línea 1
+    }
 
-  // Este es el método que evita que veas números raros en la consola
-  @Override
-  public String toString() {
-      return "Película: " + this.nombre;
-  }
+
+    @Override
+    public String toString() {
+        // Usamos getNombre() que viene automáticamente de la clase padre
+        return "Película: " + this.getNombre() + " se lanzó en " + this.getFechaDeLanzamiento() + " y dura " + this.getDuracionEnMinutos() + " minutos.";
+    }
 }

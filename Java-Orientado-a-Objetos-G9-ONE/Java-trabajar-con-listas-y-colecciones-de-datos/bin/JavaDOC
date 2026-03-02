@@ -1,0 +1,18 @@
+// Ejemplo de métodos nativos de ArrayList que puedes descubrir en el JavaDoc
+import java.util.ArrayList;
+
+public class ExploracionDoc {
+    public static void main(String[] args) {
+        var lista = new ArrayList<String>();
+        lista.add("Backend");
+        
+        // Método .contains() evalúa si un elemento existe (retorna boolean)
+        boolean existe = lista.contains("Backend"); 
+        
+        // Método .remove() elimina por índice o por coincidencia de objeto
+        lista.remove("Backend"); 
+        
+        // Método .clear() vacía la estructura completa en memoria
+        lista.clear(); 
+    }
+}
