@@ -1,15 +1,40 @@
 package backend;
-
+// Entrada del usuario para un consumo de API mas interactivo, ademas de pruebas de las clases creadas en el proyecto
+import java.util.Scanner; 
 import calc.CalculadoraDeTiempo;
 import calc.FiltroRecomendacion;
 import models.Episodio;
 import models.Pelicula;
 import models.Serie;
 
+// Curso de consumo de API en Java para adquirir informacion de los titulos 
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest; 
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class Principal {
-    public static void main(String[] args) {
+public class Principal {                    
+    public static void main(String[] args) throws Exception {
+        // Prueba de consumo de API con entrada del usuario
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre de una película para buscar en IMDB: ");
+        String busqueda = scanner.nextLine();
+        // Caracreres 
+        // Codificación profesional: transforma "el niño" en "el+ni%C3%B1o"
+        String busquedaCodificada = URLEncoder.encode(busqueda, StandardCharsets.UTF_8);
+        String direccionUrl = "https://www.omdbapi.com/?t=" + busquedaCodificada + "&apikey=aaa426c3";
+        // Implementacion de la prueba de la conexion de la API de IMDB
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(direccionUrl))
+            .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
+
         Pelicula miPelicula = new Pelicula("Encanto", 2021);
         miPelicula.setDuracionEnMinutos(180);
         System.out.println("Duración de la película: " + miPelicula.getDuracionEnMinutos());
