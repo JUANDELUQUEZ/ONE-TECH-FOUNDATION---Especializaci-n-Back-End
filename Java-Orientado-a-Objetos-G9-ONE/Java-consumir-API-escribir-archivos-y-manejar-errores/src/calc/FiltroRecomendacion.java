@@ -1,6 +1,6 @@
 package calc;
 public class FiltroRecomendacion {
-    private String recomendacion;
+    //private String recomendacion;
 
     public void filtra(Clasificable clasificable) {
         if (clasificable.getClasificacion() >= 4) {
