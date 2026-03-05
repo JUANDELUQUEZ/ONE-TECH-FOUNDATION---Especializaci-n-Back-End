@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "exceptionTryCatch",
+            "request": "launch",
+            "mainClass": "calc.exceptionTryCatch",
+            "projectName": "Java-consumir-API-escribir-archivos-y-manejar-errores_771d5b59"
+        },
+        {
+            "type": "java",
             "name": "Principal",
             "request": "launch",
             "mainClass": "backend.Principal",

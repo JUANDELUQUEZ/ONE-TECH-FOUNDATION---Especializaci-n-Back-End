@@ -22,10 +22,22 @@ public class Principal {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el nombre de una película para buscar en IMDB: ");
         String busqueda = scanner.nextLine();
-        // Caracreres 
-        // Codificación profesional: transforma "el niño" en "el+ni%C3%B1o"
-        String busquedaCodificada = URLEncoder.encode(busqueda, StandardCharsets.UTF_8);
+        
+        // Método para sanitizar el input del usuario aplicando URL Encoding
+        String busquedaCodificada = sanitizarInput(busqueda);
+        
         String direccionUrl = "https://www.omdbapi.com/?t=" + busquedaCodificada + "&apikey=aaa426c3";
+        
+        // Validación: Intentar crear URI sin encoding para demostrar el error potencial
+        try {
+            String urlSinEncoding = "https://www.omdbapi.com/?t=" + busqueda + "&apikey=aaa426c3";
+            URI uriSinEncoding = URI.create(urlSinEncoding);
+            System.out.println("URI sin encoding creada exitosamente (no esperado): " + uriSinEncoding);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error al crear URI sin encoding: " + e.getMessage());
+            System.out.println("Esto demuestra por qué es necesario el encoding.");
+        }
+        
         // Implementacion de la prueba de la conexion de la API de IMDB
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -33,7 +45,6 @@ public class Principal {
             .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
-
 
         Pelicula miPelicula = new Pelicula("Encanto", 2021);
         miPelicula.setDuracionEnMinutos(180);
@@ -45,7 +56,6 @@ public class Principal {
         miPelicula.evalua(10);
         System.out.println("Total de evaluaciones: " + miPelicula.getTotalDeEvaluaciones());
         System.out.println(miPelicula.calculaMediaEvaluaciones());
-
 
         Serie lost = new Serie("Lost", 2000);
         lost.muestraFichaTecnica();
@@ -84,5 +94,12 @@ public class Principal {
         System.out.println("La primera pelicula es: " + listaDePeliculas.get(0).getNombre());
         System.out.println(listaDePeliculas.toString());
         System.out.println("toString de la pelicula: " + listaDePeliculas.get(0).toString());
+
+        scanner.close(); // Cerrar el scanner para liberar recursos
+    }
+    
+    // Método para sanitizar el input del usuario aplicando URL Encoding con StandardCharsets.UTF_8
+    public static String sanitizarInput(String input) {
+        return URLEncoder.encode(input, StandardCharsets.UTF_8);
     }
 }
