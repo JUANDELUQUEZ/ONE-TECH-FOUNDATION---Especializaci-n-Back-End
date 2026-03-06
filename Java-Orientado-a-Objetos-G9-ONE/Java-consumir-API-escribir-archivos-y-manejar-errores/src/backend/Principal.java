@@ -23,28 +23,51 @@ public class Principal {
         System.out.print("Ingrese el nombre de una película para buscar en IMDB: ");
         String busqueda = scanner.nextLine();
         
-        // Método para sanitizar el input del usuario aplicando URL Encoding
-        String busquedaCodificada = sanitizarInput(busqueda);
-        
-        String direccionUrl = "https://www.omdbapi.com/?t=" + busquedaCodificada + "&apikey=aaa426c3";
-        
-        // Validación: Intentar crear URI sin encoding para demostrar el error potencial
         try {
-            String urlSinEncoding = "https://www.omdbapi.com/?t=" + busqueda + "&apikey=aaa426c3";
-            URI uriSinEncoding = URI.create(urlSinEncoding);
-            System.out.println("URI sin encoding creada exitosamente (no esperado): " + uriSinEncoding);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error al crear URI sin encoding: " + e.getMessage());
-            System.out.println("Esto demuestra por qué es necesario el encoding.");
+            // Validación de entrada vacía
+            if (busqueda == null || busqueda.trim().isEmpty()) {
+                throw new IllegalArgumentException("El nombre de la película no puede estar vacío");
+            }
+            
+            // Método para sanitizar el input del usuario aplicando URL Encoding
+            String busquedaCodificada = sanitizarInput(busqueda);
+            
+            String direccionUrl = "https://www.omdbapi.com/?t=" + busquedaCodificada + "&apikey=aaa426c3";
+            
+            // Validación: Intentar crear URI sin encoding para demostrar el error potencial
+            try {
+                String urlSinEncoding = "https://www.omdbapi.com/?t=" + busqueda + "&apikey=aaa426c3";
+                URI uriSinEncoding = URI.create(urlSinEncoding);
+                System.out.println("URI sin encoding creada exitosamente (no esperado): " + uriSinEncoding);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error al crear URI sin encoding: " + e.getMessage());
+                System.out.println("Esto demuestra por qué es necesario el encoding.");
+            }
+            
+            // Implementacion de la prueba de la conexion de la API de IMDB
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(direccionUrl))
+                .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            
+            // Validar respuesta de la API
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Error en la respuesta de la API. Código de estado: " + response.statusCode());
+            }
+            
+            System.out.println(response.body());
+            
+        } catch (RuntimeException e) {
+            System.out.println("Error de validación o conexión con la API: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error inesperado en el flujo de la API: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            scanner.close();
+            System.out.println("Proceso de búsqueda finalizado.");
         }
-        
-        // Implementacion de la prueba de la conexion de la API de IMDB
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(direccionUrl))
-            .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
 
         Pelicula miPelicula = new Pelicula("Encanto", 2021);
         miPelicula.setDuracionEnMinutos(180);
