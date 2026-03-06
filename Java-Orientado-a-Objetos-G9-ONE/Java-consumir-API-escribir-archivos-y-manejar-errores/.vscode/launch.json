@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "exceptionTryCatch",
+            "request": "launch",
+            "mainClass": "calc.exceptionTryCatch",
+            "projectName": "Java-consumir-API-escribir-archivos-y-manejar-errores_771d5b59"
+        },
+        {
+            "type": "java",
+            "name": "Principal",
+            "request": "launch",
+            "mainClass": "backend.Principal",
+            "projectName": "Java-consumir-API-escribir-archivos-y-manejar-errores_771d5b59"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}
