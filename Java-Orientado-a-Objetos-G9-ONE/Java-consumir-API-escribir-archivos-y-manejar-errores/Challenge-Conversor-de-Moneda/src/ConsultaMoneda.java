@@ -22,11 +22,12 @@ public class ConsultaMoneda {
 
     /**
      * Constructor de ConsultaMoneda
-     * Intenta obtener la API_KEY de la variable de entorno "EXCHANGE_RATE_API_KEY"
-     * Si no existe, lanza una excepción
+     * Usa directamente la clave de prueba en texto plano para este proyecto.
+     * (No se requiere variable de entorno en este ejercicio).
      */
     public ConsultaMoneda() {
-        this(obtenerApiKeyDelEntorno());
+        // llave puesta en código para evitar dependencia de configuración
+        this("87d0a0a89f1badabf44a6b17");
     }
 
     /**
@@ -144,16 +145,9 @@ public class ConsultaMoneda {
      * @return La API_KEY desde la variable de entorno EXCHANGE_RATE_API_KEY
      * @throws RuntimeException si la variable de entorno no está configurada
      */
+    // Ya no se usa; mantenemos sólo por compatibilidad si alguien lo invoca.
     private static String obtenerApiKeyDelEntorno() {
-        String apiKey = System.getenv("EXCHANGE_RATE_API_KEY");
-        
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            throw new RuntimeException(
-                "Variable de entorno 'EXCHANGE_RATE_API_KEY' no configurada. " +
-                "Por favor configura tu API_KEY como variable de entorno."
-            );
-        }
-        
-        return apiKey;
+        // Devuelve la misma clave fija en texto plano
+        return "87d0a0a89f1badabf44a6b17";
     }
 }
