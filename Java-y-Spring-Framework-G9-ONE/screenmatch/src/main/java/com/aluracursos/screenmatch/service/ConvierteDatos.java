@@ -13,6 +13,7 @@ public class ConvierteDatos implements IConvierteDatos {
             return objectMapper.readValue(json, clase);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error al convertir los datos: " + e.getMessage());
+            
         }
     }
 }
