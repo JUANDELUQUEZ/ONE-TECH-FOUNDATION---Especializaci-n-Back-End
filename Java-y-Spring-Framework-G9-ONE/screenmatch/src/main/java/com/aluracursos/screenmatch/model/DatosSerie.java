@@ -3,7 +3,7 @@ package com.aluracursos.screenmatch.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true) // Ignora lo que no mapeamos
+@JsonIgnoreProperties(ignoreUnknown = true)  // Ignora lo que no mapeamos
 public record DatosSerie(
     @JsonAlias("Title") String titulo,
     @JsonAlias("totalSeasons") Integer totalTemporadas,
